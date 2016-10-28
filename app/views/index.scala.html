@@ -1,8 +1,16 @@
+@(implicit request: RequestHeader)
+
 @views.html.main {
   <div id="root"></div>
   <script>
     if ('serviceWorker' in navigator) {
-      //navigator.serviceWorker.register('%PUBLIC_URL%/sw.js').catch(err => console.error('Oops!', err));
+      navigator.serviceWorker.register('@routes.Assets.versioned("js/sw.js").absoluteURL()')
+        .then(function(reg) {
+          window.reg = reg;
+        })
+        .catch(function (err) {
+          console.error('Oops!', err);
+        });
     }
   </script>
 }

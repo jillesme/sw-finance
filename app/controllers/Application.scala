@@ -7,8 +7,8 @@ import play.api.mvc._
 class Application extends Controller {
   var history = List.empty[Event]
 
-  def index = Action {
-    Ok(views.html.index.render())
+  def index = Action { implicit request =>
+    Ok(views.html.index.render(request))
   }
 
   def version = Action {

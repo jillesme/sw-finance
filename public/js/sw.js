@@ -5,11 +5,10 @@ self.addEventListener('install', function (ev) {
     caches.open(`file-cache-v${version}`)
     .then(function (cache) {
       return cache.addAll([
-        '/',
-        '/static/js/bundle.js'
+        '/'
       ]);
     })
-  ); 
+  );
 });
 
 self.addEventListener('fetch', function (ev) {

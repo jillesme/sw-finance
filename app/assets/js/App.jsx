@@ -57,7 +57,7 @@ class Form extends React.Component {
       description: '',
       amount: 0,
       type: 'expense'
-    }
+    };
 
     // clone
     this.state = Object.assign({}, this.defaultState);
@@ -68,8 +68,8 @@ class Form extends React.Component {
     setTimeout(() => {
       window.reg.showNotification('New ' + this.state.type + ' added!', {
         body: 'We\'ve added ' + this.state.description + ' to your ' + this.state.type + 's.',
-        icon: 'expense-icon.png',
-        tag: "notification-1",
+        icon: '/assets/img/expense-icon.png',
+        tag: "notification-1"
       });
       this.setState(this.defaultState);
     }, 1000)
