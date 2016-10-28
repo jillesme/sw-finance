@@ -50,6 +50,51 @@ class Overview extends React.Component {
   }
 }
 
+class Form extends React.Component {
+  constructor () {
+    super();
+    this.defaultState = {
+      description: '',
+      amount: 0,
+      type: 'expense'
+    }
+
+    // clone
+    this.state = Object.assign({}, this.defaultState);
+  }
+  submit(ev) {
+    ev.preventDefault();
+    console.log('Sending', this.state);
+    setTimeout(() => {
+      window.reg.showNotification('New ' + this.state.type + ' added!', {
+        body: 'We\'ve added ' + this.state.description + ' to your ' + this.state.type + 's.',
+        icon: 'expense-icon.png',
+        tag: "notification-1",
+      });
+      this.setState(this.defaultState);
+    }, 1000)
+  }
+  setField(ev, name) {
+    this.setState({ [name]: ev.target.value});
+  }
+  render() {
+    return (
+    <form>
+      <p>{this.state.description} - {this.state.amount} - {this.state.type}</p>
+      <label>Description: <input value={this.state.description} type="text" onChange={(ev) => this.setField(ev, 'description')}/></label>
+      <label>Amount: <input value={this.state.amount} type="number" min="0" onChange={(ev) => this.setField(ev, 'amount')}/></label>
+      <label>Type:
+        <select defaultValue={this.state.type} onChange={(ev) => this.setField(ev, 'type')}>
+          <option value="expense">Expense</option>
+          <option value="income">Income</option>
+      </select>
+    </label>
+    <button onClick={(ev) => this.submit(ev)}>Save</button>
+    </form>
+    )
+  }
+}
+
 class App extends React.Component {
   constructor() {
     super();
@@ -70,6 +115,8 @@ class App extends React.Component {
         </div>
 
         <Overview data={FAKE_BACKEND} />
+
+        <Form />
 
         <p className="App-intro">
           You're curently <strong>{this.state.online ? 'online' : 'offline' }</strong>

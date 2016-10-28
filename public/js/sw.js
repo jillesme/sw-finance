@@ -13,6 +13,8 @@ self.addEventListener('install', function (ev) {
 });
 
 self.addEventListener('fetch', function (ev) {
+  return fetch(ev.request);
+  // this is shite for dev
   ev.respondWith(
     caches.match(ev.request)
     .then(function (response) {
