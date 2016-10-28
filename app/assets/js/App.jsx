@@ -101,6 +101,12 @@ class App extends React.Component {
   constructor() {
     super();
 
+    Notification.requestPermission(result => {
+      if (result !== 'granted') {
+        alert('Bro seriously this is a demo why would you not accept notifcations...')
+      }
+    });
+
     this.state = {
       online: navigator.onLine,
       data: []
