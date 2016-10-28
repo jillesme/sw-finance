@@ -14,4 +14,16 @@ dist
 /RUNNING_PID
 /.settings
 
-    
+# dependencies
+node_modules
+
+# testing
+coverage
+
+# production
+build
+
+# misc
+.DS_Store
+.env
+npm-debug.log
