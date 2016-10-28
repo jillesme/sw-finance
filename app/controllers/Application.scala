@@ -6,9 +6,9 @@ import play.api.mvc._
 
 class Application extends Controller {
   var history = List[Event](
-    IncomeEvent("Salary", 2200, 2200),
+    ExpenditureEvent("Rent", 700, 1465),
     ExpenditureEvent("Phone bill", 35, 2165),
-    ExpenditureEvent("Rent", 700, 1465)
+    IncomeEvent("Salary", 2200, 2200)
   )
 
   def index = Action { implicit request =>
@@ -20,7 +20,7 @@ class Application extends Controller {
   }
 
   def overview = Action {
-    Ok(Json.toJson(history))
+    Ok(Json.toJson(history.reverse))
   }
 
   def income = Action(parse.json[IncomeRequest]) { request =>
@@ -36,7 +36,7 @@ class Application extends Controller {
     history match {
       case head :: tail =>
         if (head.balance >= request.body.amount) {
-          history = history :+ request.body.toEvent(head.balance)
+          history = request.body.toEvent(head.balance) +: history
           Created
         } else {
           BadRequest("Insufficient funds")
