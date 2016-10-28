@@ -1,6 +1,3 @@
-import React, { Component } from 'react';
-import './App.css';
-
 const FAKE_BACKEND = [{
   "type": "expense",
   "description": "Phone bill",
@@ -37,9 +34,9 @@ const List = (props) => {
       </ul>
     </div>
   )
-}
+};
 
-class Overview extends Component {
+class Overview extends React.Component {
   render() {
     let groups = this.props.data.reduce((current, next) => {
       current[next.type].push(next);
@@ -53,7 +50,7 @@ class Overview extends Component {
   }
 }
 
-class App extends Component {
+class App extends React.Component {
   constructor() {
     super();
 
@@ -83,5 +80,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

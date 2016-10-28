@@ -1,4 +1,4 @@
-package com.xebia.swfinance.controllers
+package controllers
 
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
@@ -8,7 +8,7 @@ class Application extends Controller {
   var history = List.empty[Event]
 
   def index = Action {
-    Ok(com.xebia.swfinance.views.html.index.render())
+    Ok(views.html.index.render())
   }
 
   def version = Action {

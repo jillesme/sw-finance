@@ -3,15 +3,16 @@
 # ~~~~
 
 # Home page
-GET         /                       com.xebia.swfinance.controllers.Application.index
+GET         /                       controllers.Application.index
 
 # API
-GET         /api                    com.xebia.swfinance.controllers.Application.version
-GET         /api/overview           com.xebia.swfinance.controllers.Application.overview
-POST        /api/income             com.xebia.swfinance.controllers.Application.income
-POST        /api/expenditure        com.xebia.swfinance.controllers.Application.expenditure
+GET         /api                    controllers.Application.version
+GET         /api/overview           controllers.Application.overview
+POST        /api/income             controllers.Application.income
+POST        /api/expenditure        controllers.Application.expenditure
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file           controllers.Assets.at(path="/public", file)
+GET         /assets/*file           controllers.Assets.versioned(path="/public", file: Asset)
 
+GET         /webjars/*file          controllers.WebJarAssets.at(file)
     
