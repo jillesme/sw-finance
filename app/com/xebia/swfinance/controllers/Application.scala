@@ -8,7 +8,7 @@ class Application extends Controller {
   var history = List.empty[Event]
 
   def index = Action {
-    Ok("")
+    Ok(com.xebia.swfinance.views.html.index.render())
   }
 
   def version = Action {
