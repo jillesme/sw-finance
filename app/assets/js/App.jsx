@@ -100,12 +100,21 @@ class App extends React.Component {
     super();
 
     this.state = {
-      online: navigator.onLine
+      online: navigator.onLine,
+      data: []
     };
 
-    const listener = () => this.setState({ online: navigator.onLine });
+    const listener = () => this.setState({online: navigator.onLine});
     window.addEventListener('online', listener);
     window.addEventListener('offline', listener);
+
+    superagent
+      .get('http://localhost:9000/api/overview')
+      .end((err, res) => {
+        this.setState({
+          data: res.body || []
+        });
+      });
   }
   render() {
     return (
@@ -114,7 +123,7 @@ class App extends React.Component {
           <Balance amount="1405,22" />
         </div>
 
-        <Overview data={FAKE_BACKEND} />
+        <Overview data={this.state.data} />
 
         <Form />
 
