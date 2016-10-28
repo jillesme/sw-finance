@@ -3,8 +3,10 @@
 # ~~~~
 
 # Home page
-GET         /api/                   com.xebia.swfinance.controllers.Application.index
+GET         /                       com.xebia.swfinance.controllers.Application.index
 
+# API
+GET         /api                    com.xebia.swfinance.controllers.Application.version
 GET         /api/overview           com.xebia.swfinance.controllers.Application.overview
 POST        /api/income             com.xebia.swfinance.controllers.Application.income
 POST        /api/expenditure        com.xebia.swfinance.controllers.Application.expenditure

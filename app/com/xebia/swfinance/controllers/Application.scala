@@ -8,6 +8,10 @@ class Application extends Controller {
   var history = List.empty[Event]
 
   def index = Action {
+    Ok("")
+  }
+
+  def version = Action {
     Ok("""{ "version": "1.0.0" }""").as("application/json")
   }
 
