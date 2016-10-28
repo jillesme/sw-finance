@@ -1,28 +1,3 @@
-const FAKE_BACKEND = [{
-  "type": "expense",
-  "description": "Phone bill",
-  "amount": 35.00,
-  "balance": 2200.00
-},
-{
-  "type": "expense",
-  "description": "Brazzers subscription",
-  "amount": 99.00,
-  "balance": 2101.00
-},
-{
-  "type": "income",
-  "description": "Salary",
-  "amount": 2000.00,
-  "balance": 4101.00
-},
-{
-  "type": "income",
-  "description": "Child support",
-  "amount": 225.00,
-  "balance": 4326.00
-}];
-
 const Balance = (props) => <h1>&euro; {props.amount}</h1>;
 
 const List = (props) => {
