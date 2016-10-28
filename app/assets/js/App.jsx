@@ -1,5 +1,21 @@
 const API_URL = 'http://localhost:9000/api';
 
+class Broadcaster {
+  constructor() {
+    this.subs = [];
+  }
+  register(sub) {
+    this.subs.push(sub);
+  }
+  broadcast(event) {
+    this.subs.forEach(s => {
+      s(event);
+    });
+  }
+}
+
+const broadcaster = new Broadcaster();
+
 const Balance = (props) => <h1>&euro; {props.amount}</h1>;
 
 const List = (props) => {
@@ -56,6 +72,7 @@ class Form extends React.Component {
             tag: "notification-1"
           });
           this.setState(this.defaultState);
+          broadcaster.broadcast('shouldUpdate');
         }
       });
   }
@@ -93,6 +110,16 @@ class App extends React.Component {
     window.addEventListener('online', listener);
     window.addEventListener('offline', listener);
 
+    broadcaster.register(event => {
+      if (event === "shouldUpdate") {
+        this.update();
+      }
+    });
+
+    this.update();
+  }
+
+  update() {
     superagent
       .get('http://localhost:9000/api/overview')
       .end((err, res) => {
@@ -101,11 +128,12 @@ class App extends React.Component {
         });
       });
   }
+
   render() {
     return (
       <div className="App">
         <div className="App-header">
-          <Balance amount="1405,22" />
+          <Balance amount={this.state.data.length ? this.state.data[this.state.data.length - 1].balance : 0} />
         </div>
 
         <Overview data={this.state.data} />
