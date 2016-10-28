@@ -1,3 +1,5 @@
+const API_URL = 'http://localhost:9000/api';
+
 const Balance = (props) => <h1>&euro; {props.amount}</h1>;
 
 const List = (props) => {
@@ -39,15 +41,23 @@ class Form extends React.Component {
   }
   submit(ev) {
     ev.preventDefault();
+    this.state.amount = +this.state.amount;
     console.log('Sending', this.state);
-    setTimeout(() => {
-      window.reg.showNotification('New ' + this.state.type + ' added!', {
-        body: 'We\'ve added ' + this.state.description + ' to your ' + this.state.type + 's.',
-        icon: '/assets/img/expense-icon.png',
-        tag: "notification-1"
+    superagent
+      .post(`${API_URL}/${this.state.type}`)
+      .send(this.state)
+      .end((err, res) => {
+        if (err || !res.ok) {
+          // TODO - Handle error
+        } else {
+          window.reg.showNotification('New ' + this.state.type + ' added!', {
+            body: 'We\'ve added ' + this.state.description + ' to your ' + this.state.type + 's.',
+            icon: '/assets/img/expense-icon.png',
+            tag: "notification-1"
+          });
+          this.setState(this.defaultState);
+        }
       });
-      this.setState(this.defaultState);
-    }, 1000)
   }
   setField(ev, name) {
     this.setState({ [name]: ev.target.value});
