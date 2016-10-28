@@ -25,7 +25,7 @@ class Application extends Controller {
 
   def income = Action(parse.json[IncomeRequest]) { request =>
     history match {
-      case head :: tail => history = history :+ request.body.toEvent(head.balance)
+      case head :: tail => history = request.body.toEvent(head.balance) +: history
       case _ => history = List(request.body.toEvent(0))
     }
 
