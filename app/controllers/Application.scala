@@ -5,7 +5,11 @@ import play.api.libs.functional.syntax._
 import play.api.mvc._
 
 class Application extends Controller {
-  var history = List.empty[Event]
+  var history = List[Event](
+    IncomeEvent("Salary", 2200, 2200),
+    ExpenditureEvent("Phone bill", 35, 2165),
+    ExpenditureEvent("Rent", 700, 1465)
+  )
 
   def index = Action { implicit request =>
     Ok(views.html.index.render(request))
